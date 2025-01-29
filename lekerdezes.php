@@ -82,3 +82,5 @@ if(isset($_POST["conn-btn"])) {
     AddTableSubjects($conn);
     AddTableGrades($conn);
 }
+
+/*Itt van egy mókás szöveeg hihihihihihi*/
