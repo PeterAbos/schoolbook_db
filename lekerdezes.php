@@ -28,9 +28,10 @@ function ConnectDB($db) {
 
 function CreateDB($conn) {
     $result = mysqli_query($conn,
-     "CREATE DATABASE `schoolbook` IF NOT EXISTS
+     "CREATE DATABASE IF NOT EXISTS `schoolbook`
       DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci ;");
 }
+
 
 
 HTMLBody();
