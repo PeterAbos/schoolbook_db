@@ -70,6 +70,10 @@ function AddTableGrades($conn) {
     )");
 }
 
+function FillDatabase($conn) {
+    
+}
+
 
 HTMLBody();
 if(isset($_POST["conn-btn"])) {
