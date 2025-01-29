@@ -75,4 +75,8 @@ HTMLBody();
 if(isset($_POST["conn-btn"])) {
     $conn = ConnectDB($db);
     CreateDB($conn);
+    AddTableStudent($conn);
+    AddTableClasses($conn);
+    AddTableSubjects($conn);
+    AddTableGrades($conn);
 }
