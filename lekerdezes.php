@@ -32,6 +32,43 @@ function CreateDB($conn) {
       DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci ;");
 }
 
+function AddTableStudent($conn) {
+    $result = mysqli_query($conn,
+     "CREATE TABLE IF NOT EXISTS `students` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	gender INT,
+	class_id INT
+    )");
+}
+
+function AddTableClasses($conn) {
+    $result = mysqli_query($conn,
+    "CREATE TABLE IF NOT EXISTS `classes` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	code VARCHAR(3),
+	year YEAR
+    )");
+}
+
+function AddTableSubjects($conn) {
+    $result = mysqli_query($conn,
+    "CREATE TABLE IF NOT EXISTS `subjects` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(20) NOT NULL
+    )");
+}
+
+function AddTableGrades($conn) {
+    $result = mysqli_query($conn,
+    "CREATE TABLE IF NOT EXISTS `grades` (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	student_id INT,
+	subject_id INT,
+	grade INT,
+	date DATE
+    )");
+}
 
 
 HTMLBody();
