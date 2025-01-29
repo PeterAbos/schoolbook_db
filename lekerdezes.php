@@ -76,9 +76,10 @@ function AddTableGrades($conn) {
     )");
 }
 
-function InsertToSubjects($conn) {
+function InsertToSubjects($conn, $id, $name) {
     mysqli_query($conn, 
-    "");
+    "INSERT INTO subjects
+    VALUES ($id, $name)");
 }
 
 function FillDatabase($conn) {

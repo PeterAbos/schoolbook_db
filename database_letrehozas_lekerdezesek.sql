@@ -32,3 +32,6 @@ CREATE TABLE `grades` (
 	grade INT,
 	date DATE
 )
+
+INSERT INTO subjects (id, name)
+VALUES (0, "név");
