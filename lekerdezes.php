@@ -1,11 +1,17 @@
 <?php
 
+require_once 'classroom-data.php';
+
 $db = [
     "server"=>"localhost",
     "user"=>"root",
     "pw"=>"",
     "name"=>""
 ];
+
+function getData() {
+    return DATA;
+}
 
 function HTMLBody() {
     echo "Csatlakozás";
@@ -70,8 +76,16 @@ function AddTableGrades($conn) {
     )");
 }
 
+function InsertToSubjects($conn) {
+    mysqli_query($conn, 
+    "");
+}
+
 function FillDatabase($conn) {
-    
+    $data = getData();
+
+    //Subject tábla feltöltése:
+    $subjects = $data["subjects"];
 }
 
 
