@@ -78,8 +78,8 @@ function AddTableGrades($conn) {
 
 function InsertToSubjects($conn, $id, $name) {
     mysqli_query($conn, 
-    "INSERT INTO subjects
-    VALUES ($id, $name)");
+    "INSERT IGNORE INTO subjects(id, name)
+    VALUES ($id, '$name')");
 }
 
 function FillDatabase($conn) {
@@ -87,6 +87,9 @@ function FillDatabase($conn) {
 
     //Subject tábla feltöltése:
     $subjects = $data["subjects"];
+    for($i = 0; $i < count($subjects); $i++) {
+        InsertToSubjects($conn, $i+1, $subjects[$i]);
+    }
 }
 
 
@@ -100,6 +103,8 @@ if(isset($_POST["conn-btn"])) {
     AddTableClasses($conn);
     AddTableSubjects($conn);
     AddTableGrades($conn);
+
+    FillDatabase($conn);
 }
 
 /*Itt van egy mókás szöveeg hihihihihihi*/
