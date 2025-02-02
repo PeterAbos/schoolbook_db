@@ -81,6 +81,11 @@ function InsertToSubjects($conn, $id, $name) {
     "INSERT IGNORE INTO subjects(id, name)
     VALUES ($id, '$name')");
 }
+function InsertToClasses($conn, $id, $name, $year) {
+    mysqli_query($conn, 
+    "INSERT IGNORE INTO classes(id, code, year)
+    VALUES ($id, '$name', '$year')");
+}
 
 function FillDatabase($conn) {
     $data = getData();
@@ -89,6 +94,12 @@ function FillDatabase($conn) {
     $subjects = $data["subjects"];
     for($i = 0; $i < count($subjects); $i++) {
         InsertToSubjects($conn, $i+1, $subjects[$i]);
+    }
+
+    //Classes tábla feltöltése
+    $classes = $data["classes"];
+    for($i = 0; $i < count($classes); $i++) {
+        InsertToClasses($conn, $i+1, $classes[$i], "2025");
     }
 }
 
