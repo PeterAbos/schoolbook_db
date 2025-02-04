@@ -87,6 +87,10 @@ function InsertToClasses($conn, $id, $name, $year) {
     VALUES ($id, '$name', '$year')");
 }
 
+function InsertToStudents($conn, $name, $gender, $class) {
+    
+}
+
 function FillDatabase($conn) {
     $data = getData();
 
@@ -100,6 +104,23 @@ function FillDatabase($conn) {
     $classes = $data["classes"];
     for($i = 0; $i < count($classes); $i++) {
         InsertToClasses($conn, $i+1, $classes[$i], "2025");
+    }
+
+    //Students és Grades tábla feltöltése
+    $lnames = $data["lastnames"];
+    $fnames = $data["firstnames"];
+    foreach ($classes as $c) {
+        $classNum = random_int(10, 20);
+        for ($i = 0; $i < $classNum; $i++) {
+            //Egy diák létrehozása
+            $gNum = random_int(0, 1);
+            $gender = $gNum == 0 ? "women" : "men";
+            $lnameIndex = random_int(0, count($lnames));
+            $fnameIndex = random_int(0, count($fnames[$gender]));
+            $Name = $lnames[$lnameIndex] + " " + $fnames[$gender][$fnameIndex];
+
+            //A diák tantárgyankénti jegyeinek létrehozásas
+        }
     }
 }
 
