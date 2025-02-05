@@ -137,7 +137,8 @@ function FillDatabase($conn) {
                 $gradeNum = random_int(1, 5);
                 for ($j = 0; $j < $gradeNum; $j++) {
                     $randomGrade = random_int(1, 5);
-                    InsertToGrades($conn, $idCounter, $subject, $randomGrade, "2025-02-05");
+                    $datum = date('Y-m-d');
+                    InsertToGrades($conn, $idCounter, $subject, $randomGrade, $datum);
                 }
             }
 
