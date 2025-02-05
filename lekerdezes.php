@@ -88,7 +88,17 @@ function InsertToClasses($conn, $id, $name, $year) {
 }
 
 function InsertToStudents($conn, $name, $gender, $class) {
-    
+    mysqli_query($conn, 
+    "INSERT INTO students(name, gender, class_id)
+    VALUES ('$name', '$gender', (SELECT id
+                                    FROM classes
+                                    WHERE code='$class'))");
+}
+
+function InsertToGrades($conn, $id, $subject, $grade, $date) {
+    mysqli_query($conn, 
+    "INSERT INTO grades(student_id, subject_id, grade, date)
+     VALUES ('$id', (SELECT id FROM subjects WHERE name='$subject'), '$grade', '$date')");
 }
 
 function FillDatabase($conn) {
@@ -109,17 +119,29 @@ function FillDatabase($conn) {
     //Students és Grades tábla feltöltése
     $lnames = $data["lastnames"];
     $fnames = $data["firstnames"];
+    $idCounter = 1;
     foreach ($classes as $c) {
         $classNum = random_int(10, 20);
         for ($i = 0; $i < $classNum; $i++) {
             //Egy diák létrehozása
             $gNum = random_int(0, 1);
-            $gender = $gNum == 0 ? "women" : "men";
-            $lnameIndex = random_int(0, count($lnames));
-            $fnameIndex = random_int(0, count($fnames[$gender]));
-            $Name = $lnames[$lnameIndex] + " " + $fnames[$gender][$fnameIndex];
+            $gender = $gNum == 1 ? "men" : "women";
+            $lnameIndex = random_int(0, count($lnames)-1);
+            $fnamesG = $fnames[$gender];
+            $fnameIndex = random_int(0, count($fnamesG)-1);
+            $Name = $lnames[$lnameIndex]." ".$fnamesG[$fnameIndex];
+            InsertToStudents($conn, $Name, $gNum, $c);
 
             //A diák tantárgyankénti jegyeinek létrehozásas
+            foreach ($subjects as $subject) {
+                $gradeNum = random_int(1, 5);
+                for ($j = 0; $j < $gradeNum; $j++) {
+                    $randomGrade = random_int(1, 5);
+                    InsertToGrades($conn, $idCounter, $subject, $randomGrade, "2025-02-05");
+                }
+            }
+
+            $idCounter++;
         }
     }
 }
