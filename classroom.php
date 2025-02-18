@@ -52,3 +52,17 @@ function FillDatabase($conn) {
         }
     }
 }
+
+function MakeDB() {
+    $conn = ConnectDB("");
+    CreateDB($conn);
+    $conn->close();
+    $conn = ConnectDB("schoolbook");
+    AddTableStudent($conn);
+    AddTableClasses($conn);
+    AddTableSubjects($conn);
+    AddTableGrades($conn);
+
+    FillDatabase($conn);
+    $conn->close();
+}

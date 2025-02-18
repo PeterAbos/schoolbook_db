@@ -1,32 +1,19 @@
 <?php
 
-$db = [
-    "server"=>"localhost",
-    "user"=>"root",
-    "pw"=>"",
-    "name"=>""
-];
+function ConnectDB($dbName) {
+    $conn = new mysqli("localhost", "root", "", $dbName);
 
-function ConnectDB($db) {
-    $conn = mysqli_connect($db["server"], $db["user"], $db["pw"], $db["name"]);
-
-    if($conn){
-        echo "Sikeres csatlakozás";
-    }
-    else {
-        echo "Csatlakozás sikertelen";
-    }
     return $conn;
 }
 
 function CreateDB($conn) {
-    $result = mysqli_query($conn,
+    $result = $conn->query(
      "CREATE DATABASE IF NOT EXISTS `schoolbook`
       DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci ;");
 }
 
 function AddTableStudent($conn) {
-    $result = mysqli_query($conn,
+    $result = $conn->query(
      "CREATE TABLE IF NOT EXISTS `students` (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(50) NOT NULL,
@@ -36,7 +23,7 @@ function AddTableStudent($conn) {
 }
 
 function AddTableClasses($conn) {
-    $result = mysqli_query($conn,
+    $result = $conn->query(
     "CREATE TABLE IF NOT EXISTS `classes` (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	code VARCHAR(3),
@@ -45,7 +32,7 @@ function AddTableClasses($conn) {
 }
 
 function AddTableSubjects($conn) {
-    $result = mysqli_query($conn,
+    $result = $conn->query(
     "CREATE TABLE IF NOT EXISTS `subjects` (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(20) NOT NULL
@@ -53,7 +40,7 @@ function AddTableSubjects($conn) {
 }
 
 function AddTableGrades($conn) {
-    $result = mysqli_query($conn,
+    $result = $conn->query(
     "CREATE TABLE IF NOT EXISTS `grades` (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	student_id INT,
@@ -64,18 +51,18 @@ function AddTableGrades($conn) {
 }
 
 function InsertToSubjects($conn, $id, $name) {
-    mysqli_query($conn, 
+    $conn->query(
     "INSERT IGNORE INTO subjects(id, name)
     VALUES ($id, '$name')");
 }
 function InsertToClasses($conn, $id, $name, $year) {
-    mysqli_query($conn, 
+    $conn->query( 
     "INSERT IGNORE INTO classes(id, code, year)
     VALUES ($id, '$name', '$year')");
 }
 
 function InsertToStudents($conn, $name, $gender, $class) {
-    mysqli_query($conn, 
+    $conn->query( 
     "INSERT INTO students(name, gender, class_id)
     VALUES ('$name', '$gender', (SELECT id
                                     FROM classes
@@ -83,9 +70,23 @@ function InsertToStudents($conn, $name, $gender, $class) {
 }
 
 function InsertToGrades($conn, $id, $subject, $grade, $date) {
-    mysqli_query($conn, 
+    $conn->query(
     "INSERT INTO grades(student_id, subject_id, grade, date)
      VALUES ('$id', (SELECT id FROM subjects WHERE name='$subject'), '$grade', '$date')");
+}
+
+function DBExists($dbname, $host = "localhost", $user = "root", $password = "") {
+    $mysqli = new mysqli($host, $user, $password);
+    
+    if ($mysqli->connect_error) {
+        return false;
+    }
+    
+    $result = $mysqli->query("SHOW DATABASES LIKE '$dbname'");
+    $exists = $result && $result->num_rows > 0;
+    
+    $mysqli->close();
+    return $exists;
 }
 
 /*Itt van egy mókás szöveeg hihihihihihi*/
