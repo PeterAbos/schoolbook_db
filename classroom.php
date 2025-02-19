@@ -19,7 +19,7 @@ function FillDatabase($conn) {
     $classes = $data["classes"];
     $class_year = [];
     for($i = 0; $i < count($classes); $i++) {
-        $randomYear = random_int(1980, 2025);
+        $randomYear = random_int(2020, 2024);
         InsertToClasses($conn, $i+1, $classes[$i], (string)$randomYear);
         $class_year[$classes[$i]] = $randomYear;
     }
@@ -37,7 +37,7 @@ function FillDatabase($conn) {
             $fnamesG = $fnames[$gender];
             $fnameIndex = random_int(0, count($fnamesG)-1);
             $Name = $lnames[$lnameIndex]." ".$fnamesG[$fnameIndex];
-            InsertToStudents($conn, $Name, $gNum, $c);
+            InsertToStudents($conn, $Name, $gNum, $c, $classYear);
 
             //A diák tantárgyankénti jegyeinek létrehozásas
             foreach ($subjects as $subject) {

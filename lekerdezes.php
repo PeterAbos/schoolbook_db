@@ -6,6 +6,14 @@ function ConnectDB($dbName) {
     return $conn;
 }
 
+function dropDB($dbName) {
+    $conn = ConnectDB("");
+
+    $conn->query("DROP DATABASE $dbName");
+
+    $conn->close();
+}
+
 function CreateDB($conn) {
     $result = $conn->query(
      "CREATE DATABASE IF NOT EXISTS `schoolbook`
@@ -57,22 +65,24 @@ function InsertToSubjects($conn, $id, $name) {
 }
 function InsertToClasses($conn, $id, $name, $year) {
     $conn->query( 
-    "INSERT IGNORE INTO classes(id, code, year)
-    VALUES ($id, '$name', '$year')");
+    "INSERT IGNORE INTO classes(code, year)
+    VALUES ('$name', '$year')");
 }
 
-function InsertToStudents($conn, $name, $gender, $class) {
+function InsertToStudents($conn, $name, $gender, $class, $year) {
     $conn->query( 
     "INSERT INTO students(name, gender, class_id)
     VALUES ('$name', '$gender', (SELECT id
                                     FROM classes
-                                    WHERE code='$class'))");
+                                    WHERE code='$class' AND year='$year'))");
 }
 
 function InsertToGrades($conn, $id, $subject, $grade, $date) {
     $conn->query(
     "INSERT INTO grades(student_id, subject_id, grade, date)
-     VALUES ('$id', (SELECT id FROM subjects WHERE name='$subject'), '$grade', '$date')");
+     VALUES ($id, 
+     (SELECT id FROM subjects WHERE name='$subject'), 
+     '$grade', '$date')");
 }
 
 function DBExists($dbname, $host = "localhost", $user = "root", $password = "") {

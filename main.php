@@ -6,8 +6,9 @@ require_once "classroom.php";
 
 
 
-if (!DBExists("schoolbook")) {
-    MakeDB();
+if (DBExists("schoolbook")) {
+    dropDB("schoolbook");
 }
+MakeDB();
 $conn = ConnectDB("schoolbook");
 echo "Létezik";
