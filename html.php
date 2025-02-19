@@ -5,13 +5,12 @@ require_once "classroom.php";
 function HTMLBody() {
     $years = getYears();
     echo "<form method='post' action=''>";
-    echo "<table border=2>";
-    echo "<tr>";
+    echo "<select name='dropdown' onchange=''>";
+    echo "<option value=''>Válassz egy évfolyamot...</option>";
     foreach ($years as $y) {
-        echo "<td><button name='btn-$y'>$y</button></td>";
+        echo "<option value='$y'>$y</option>";
     }
-    echo "</tr>";
-    echo "</table>";
+    echo "</select>";
     echo "</form>";
 }
 

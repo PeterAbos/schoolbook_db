@@ -11,3 +11,6 @@ if (!DBExists("schoolbook")) {
     MakeDB();
 }
 HTMLBody();
+if (isset($_POST)) {
+    
+}
