@@ -17,13 +17,17 @@ function FillDatabase($conn) {
     }
 
     $classes = $data["classes"];
+    $class_year = [];
     for($i = 0; $i < count($classes); $i++) {
-        InsertToClasses($conn, $i+1, $classes[$i], "2025");
+        $randomYear = random_int(1980, 2025);
+        InsertToClasses($conn, $i+1, $classes[$i], (string)$randomYear);
+        $class_year[$classes[$i]] = $randomYear;
     }
     $lnames = $data["lastnames"];
     $fnames = $data["firstnames"];
     $idCounter = 1;
     foreach ($classes as $c) {
+        $classYear = $class_year[$c];
         $classNum = random_int(10, 20);
         for ($i = 0; $i < $classNum; $i++) {
             //Egy diák létrehozása
@@ -40,8 +44,16 @@ function FillDatabase($conn) {
                 $gradeNum = random_int(1, 5);
                 for ($j = 0; $j < $gradeNum; $j++) {
                     $randomGrade = random_int(1, 5);
-                    $datum = date('Y-m-d');
-                    InsertToGrades($conn, $idCounter, $subject, $randomGrade, $datum);
+                    $date = date('Y-m-d');
+                    $y = random_int(0, 1);
+                    if ($y) {
+                        $rMonth = random_int(1, 5);
+                    } else {
+                        $rMonth = random_int(9, 12);
+                    }
+                    $rDay = random_int(1, 31);
+                    $date = ($classYear+$y)."-".$rMonth."-".$rDay;
+                    InsertToGrades($conn, $idCounter, $subject, $randomGrade, $date);
                 }
             }
 
