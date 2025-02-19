@@ -99,4 +99,19 @@ function DBExists($dbname, $host = "localhost", $user = "root", $password = "") 
     return $exists;
 }
 
+
+function Years($conn) {
+    
+
+    $sql = "SELECT year
+            FROM classes
+            GROUP BY year
+            ORDER BY 1";
+
+    $result = $conn->query($sql);
+
+    return $result;
+
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

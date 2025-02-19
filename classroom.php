@@ -1,6 +1,7 @@
 <?php
 
 require_once "classroom-data.php";
+require_once "lekerdezes.php";
 
 function getData() {
     return DATA;
@@ -74,4 +75,17 @@ function MakeDB() {
 
     FillDatabase($conn);
     $conn->close();
+}
+
+function getYears() {
+    $conn = ConnectDB("schoolbook");
+    $result = Years($conn);
+    $years = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $years[] = $row["year"];
+        }
+    }
+    $conn->close();
+    return $years;
 }
