@@ -17,14 +17,13 @@ function FillDatabase($conn) {
     }
 
     $classes = $data["classes"];
+    for($i = 0; $i < count($classes); $i++) {
+        InsertToClasses($conn, $i+1, $classes[$i], "2025");
+    }
     $lnames = $data["lastnames"];
     $fnames = $data["firstnames"];
     $idCounter = 1;
-    //classes feltöltése
-    for($i = 0; $i < count($classes); $i++) {
-        $c = $classes[$i];
-        InsertToClasses($conn, $i+1, $c, "2025");
-        //az osztály feltöltése diákokkal
+    foreach ($classes as $c) {
         $classNum = random_int(10, 20);
         for ($i = 0; $i < $classNum; $i++) {
             //Egy diák létrehozása
@@ -35,8 +34,8 @@ function FillDatabase($conn) {
             $fnameIndex = random_int(0, count($fnamesG)-1);
             $Name = $lnames[$lnameIndex]." ".$fnamesG[$fnameIndex];
             InsertToStudents($conn, $Name, $gNum, $c);
-    
-            //A diák tantárgyankénti jegyeinek létrehozásai
+
+            //A diák tantárgyankénti jegyeinek létrehozásas
             foreach ($subjects as $subject) {
                 $gradeNum = random_int(1, 5);
                 for ($j = 0; $j < $gradeNum; $j++) {
@@ -45,11 +44,9 @@ function FillDatabase($conn) {
                     InsertToGrades($conn, $idCounter, $subject, $randomGrade, $datum);
                 }
             }
-    
+
             $idCounter++;
         }
-    }
-    foreach ($classes as $c) {
     }
 }
 
