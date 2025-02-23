@@ -114,4 +114,18 @@ function Years($conn) {
 
 }
 
+function Classes($conn, $y) {
+    
+
+    $sql = "SELECT code
+            FROM classes
+            WHERE year=$y
+            ORDER BY 1";
+
+    $result = $conn->query($sql);
+
+    return $result;
+
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

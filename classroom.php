@@ -89,3 +89,16 @@ function getYears() {
     $conn->close();
     return $years;
 }
+
+function getClasses($y) {
+    $conn = ConnectDB("schoolbook");
+    $result = Classes($conn, $y);
+    $classes = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $classes[] = $row["code"];
+        }
+    }
+    $conn->close();
+    return $classes;
+}
