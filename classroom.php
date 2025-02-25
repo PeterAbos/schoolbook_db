@@ -102,3 +102,13 @@ function getClasses($y) {
     $conn->close();
     return $classes;
 }
+
+function getYear() {
+    $years = getYears();
+    foreach ($years as $y) {
+        if (isset($_POST["btn-$y"])) {
+            return $y;
+        }
+    }
+    return -1;
+}
