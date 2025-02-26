@@ -128,4 +128,15 @@ function Classes($conn, $y) {
 
 }
 
+function Students($conn, $class) {
+    $sql = "SELECT s.name 'name'
+            FROM students s
+            JOIN classes c ON s.class_id=c.id
+            WHERE c.code='$class'";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

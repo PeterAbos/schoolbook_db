@@ -27,10 +27,24 @@ function writeClasses($y) {
         return;
     }
     $classes = getClasses($y);
+    $_SESSION["classes"] = $classes;
     foreach ($classes as $c) {
         echo "<td><button name='btn-$c'>$c</button></td>";
         if (isset($_POST["btn-$c"])) {
             echo "Megnyomva: $c";
         }
     }
+}
+
+function writeAClass($class) {
+    if ($class == -1) {
+        return;
+    }
+    $students = getStudents($class);
+    echo "<h2>$class</h2>";
+    echo "<table border=2>";
+    foreach ($students as $s) {
+        echo "<tr><td>{$s}</td></tr>";
+    }
+    echo "</table>";
 }

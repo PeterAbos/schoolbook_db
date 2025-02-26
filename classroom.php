@@ -112,3 +112,27 @@ function getYear() {
     }
     return -1;
 }
+
+function getClass() {
+    $classes = $_SESSION["classes"];
+    foreach ($classes as $c) {
+        if (isset($_POST["btn-$c"])) {
+            return $c;
+        }
+    }
+    return -1;
+    
+}
+
+function getStudents($class) {
+    $conn = ConnectDB("schoolbook");
+    $result = Students($conn, $class);
+    $students = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $students[] = $row["name"];
+        }
+    }
+    $conn->close();
+    return $students;
+}
