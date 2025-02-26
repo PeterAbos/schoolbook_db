@@ -186,4 +186,18 @@ function getAVG($conn, $id) {
     return $result;
 }
 
+function AVGSubClass($conn, $class) {
+    $sql = "SELECT c.code, su.name as targy, ROUND(AVG(g.grade), 2) as atlag
+            FROM grades g
+            JOIN students st ON st.id=g.student_id
+            JOIN subjects su ON su.id=g.subject_id
+            JOIN classes c ON c.id=st.class_id
+            WHERE c.code='11a'
+            GROUP BY c.code, su.name";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

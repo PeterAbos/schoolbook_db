@@ -183,3 +183,17 @@ function getStudentThings($id) {
 
     return $things;
 }
+
+function getClassAVGSub($class) {
+    $conn = ConnectDB("schoolbook");
+    $result = AVGSubClass($conn, $class);
+    $things = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $things[$row["targy"]] = $row["atlag"];
+        }
+    }
+    $conn->close();
+
+    return $things;
+}

@@ -49,3 +49,12 @@ FROM (SELECT t.osztaly as osztaly, t.nev, AVG(t.atlag) as atlag
                 GROUP BY st.name, su.name) t
         GROUP BY t.id) h
 GROUP BY h.osztaly;
+
+-- osztály átlaga tantárgyanként --
+SELECT c.code, su.name as targy, ROUND(AVG(g.grade), 2) as atlag
+FROM grades g
+JOIN students st ON st.id=g.student_id
+JOIN subjects su ON su.id=g.subject_id
+JOIN classes c ON c.id=st.class_id
+WHERE c.code='11a'
+GROUP BY c.code, su.name;

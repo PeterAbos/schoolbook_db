@@ -44,7 +44,12 @@ function writeClassAVG($y) {
     }
     echo "<table border=2>";
     foreach ($classAVG as $c => $avg) {
-        echo "<tr><td>$c</td><td>$avg</td></tr>";
+        echo "<tr><th colspan=2>$c</th></tr>";
+        echo "<tr><td>AVG</td><td>$avg</td></tr>";
+        $avgs = getClassAVGSub($c);
+        foreach ($avgs as $s => $a) {
+            echo "<tr><td>$s</td><td>$a</td></tr>";
+        }
     }
     echo "</table>";
 }
