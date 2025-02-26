@@ -43,8 +43,8 @@ function writeAClass($class) {
     $students = getStudents($class);
     echo "<h2>$class</h2>";
     echo "<table border=2>";
-    foreach ($students as $s) {
-        echo "<tr><td>{$s}</td></tr>";
+    foreach ($students as $id => $s) {
+        echo "<tr><td>$id</td><td>$s</td></tr>";
     }
     echo "</table>";
 }

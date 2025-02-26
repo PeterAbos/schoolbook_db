@@ -129,10 +129,11 @@ function Classes($conn, $y) {
 }
 
 function Students($conn, $class) {
-    $sql = "SELECT s.name 'name'
+    $sql = "SELECT s.id as id, s.name as 'name'
             FROM students s
             JOIN classes c ON s.class_id=c.id
-            WHERE c.code='$class'";
+            WHERE c.code='$class'
+            ORDER BY 2";
 
     $result = $conn->query($sql);
 

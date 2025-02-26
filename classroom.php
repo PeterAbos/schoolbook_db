@@ -133,7 +133,7 @@ function getStudents($class) {
     $students = [];
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            $students[] = $row["name"];
+            $students[$row["id"]] = $row["name"];
         }
     }
     $conn->close();
