@@ -114,6 +114,9 @@ function getYear() {
 }
 
 function getClass() {
+    if (!isset($_SESSION["classes"])) {
+        return -1;
+    }
     $classes = $_SESSION["classes"];
     foreach ($classes as $c) {
         if (isset($_POST["btn-$c"])) {
