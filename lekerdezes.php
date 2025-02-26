@@ -140,4 +140,22 @@ function Students($conn, $class) {
     return $result;
 }
 
+function classAVG($conn, $class) {
+    $sql = "SELECT h.osztaly as osztaly, ROUND(AVG(h.atlag), 2) as atlag
+            FROM (SELECT t.osztaly as osztaly, t.nev, AVG(t.atlag) as atlag
+                    FROM (SELECT c.code as osztaly, st.id as id, st.name as nev, su.name, AVG(g.grade) as atlag
+                            FROM grades g
+                            JOIN students st ON st.id=g.student_id
+                            JOIN subjects su ON su.id=g.subject_id
+                            JOIN classes c ON c.id=st.class_id
+                            WHERE c.code='$class'
+                            GROUP BY st.name, su.name) t
+                    GROUP BY t.id) h
+            GROUP BY h.osztaly";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

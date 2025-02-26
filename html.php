@@ -13,6 +13,7 @@ function HTMLBody() {
     echo "</tr>";
     echo "</table>";
     echo "</form>";
+    writeClassAVG(getYear());
 }
 
 function writeYears() {
@@ -34,6 +35,18 @@ function writeClasses($y) {
             echo "Megnyomva: $c";
         }
     }
+}
+
+function writeClassAVG($y) {
+    $classAVG = getClassAVG();
+    if ($classAVG == -1) {
+        return;
+    }
+    echo "<table border=2>";
+    foreach ($classAVG as $c => $avg) {
+        echo "<tr><td>$c</td><td>$avg</td></tr>";
+    }
+    echo "</table>";
 }
 
 function writeAClass($class) {

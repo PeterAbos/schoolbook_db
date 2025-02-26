@@ -139,3 +139,25 @@ function getStudents($class) {
     $conn->close();
     return $students;
 }
+
+function getClassAVG() {
+    if (!isset($_SESSION["classes"])) {
+        return -1;
+    }
+    $classes = $_SESSION["classes"];
+    $classAVG = [];
+    foreach ($classes as $c) {
+        $conn = ConnectDB("schoolbook");
+        
+        $result = classAVG($conn, $c);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $classAVG[$c] = $row["atlag"];
+            }
+        }
+
+        $conn->close();
+    }
+
+    return $classAVG;
+}
