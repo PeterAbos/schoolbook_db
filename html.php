@@ -55,9 +55,23 @@ function writeAClass($class) {
     }
     $students = getStudents($class);
     echo "<h2>$class</h2>";
-    echo "<table border=2>";
+    echo "<table>";
     foreach ($students as $id => $s) {
-        echo "<tr><td>$id</td><td>$s</td></tr>";
+        echo "<tr>";
+        echo "<table border=2 style='margin: 10'>";
+        echo "<th colspan=2>$s</th>";
+        $things = getStudentThings($id);
+        foreach ($things as $t => $avg) {
+            echo "<tr>";
+            echo "<td>$t</td>";
+            echo "<td>$avg</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+        echo "</tr>";
+        
+
     }
     echo "</table>";
 }

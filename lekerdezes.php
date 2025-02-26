@@ -158,4 +158,32 @@ function classAVG($conn, $class) {
     return $result;
 }
 
+function getThings($conn, $id) {
+    $sql = "SELECT su.name as targy, ROUND(AVG(g.grade), 2) as atlag
+            FROM grades g
+            JOIN students st ON st.id=g.student_id
+            JOIN subjects su ON su.id=g.subject_id
+            WHERE st.id=$id
+            GROUP BY st.name, su.name";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
+function getAVG($conn, $id) {
+    $sql = "SELECT t.nev, ROUND(AVG(t.atlag), 2) as atlag
+            FROM (SELECT st.id as id, st.name as nev, su.name, AVG(g.grade) as atlag
+                    FROM grades g
+                    JOIN students st ON st.id=g.student_id
+                    JOIN subjects su ON su.id=g.subject_id
+                WHERE st.id=$id
+                GROUP BY st.name, su.name) t
+            GROUP BY t.id";
+    
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

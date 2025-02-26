@@ -161,3 +161,25 @@ function getClassAVG() {
 
     return $classAVG;
 }
+
+function getStudentThings($id) {
+    $conn = ConnectDB("schoolbook");
+
+    $things = [];
+    $result = getThings($conn, $id);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $things[$row["targy"]] = $row["atlag"];
+        }
+    }
+    $result = getAVG($conn, $id);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $things["AVG"] = $row["atlag"];
+        }
+    }
+
+    $conn->close();
+
+    return $things;
+}
