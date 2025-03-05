@@ -9,3 +9,4 @@ if (!DBExists("schoolbook")) {
     MakeDB();
 }
 htmlBody();
+setPage(getBtnPost());

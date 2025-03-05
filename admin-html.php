@@ -7,3 +7,11 @@ function htmlBody() {
 
     echo "</form>";
 }
+
+function subjectsCRUD() {
+    echo "Tantárgyak módosítása";
+}
+
+function classesCRUD() {
+    echo "Osztályok módosítása";
+}
