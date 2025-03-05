@@ -200,4 +200,20 @@ function AVGSubClass($conn, $class) {
     return $result;
 }
 
+/*Adminhoz szükséges lekérdezések*/
+
+function subjectsSQL($conn) {
+    $sql = "SELECT id, name
+            FROM subjects";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
+
+
+
+
+
 /*Itt van egy mókás szöveeg hihihihihihi*/

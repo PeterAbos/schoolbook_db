@@ -17,10 +17,23 @@ function setPage($version) {
     if (!$version) { return; }
     switch ($version) {
         case 1:
-            subjectsCRUD();
+            subjectsCRUDHtml();
             break;
         case 2:
-            classesCRUD();
+            classesCRUDHtml();
             break;
     }
+}
+
+function getSubjects() {
+    $conn = ConnectDB("schoolbook");
+    $result = subjectsSQL($conn);
+    $subjects = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $subjects[$row["id"]] = $row["name"];
+        }
+    }
+    $conn->close();
+    return $subjects;
 }
