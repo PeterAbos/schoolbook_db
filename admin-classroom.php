@@ -51,6 +51,7 @@ function setPage($version) {
             $conn = ConnectDB('schoolbook');
             InsertToSubjects($conn, $sub);
             $conn->close();
+            setPage(1);
             break;
         case 6:
             changeSubject($_POST["change-sub"], getSubjectById($_POST["change-sub"]));

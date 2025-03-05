@@ -204,7 +204,8 @@ function AVGSubClass($conn, $class) {
 
 function subjectsSQL($conn) {
     $sql = "SELECT id, name
-            FROM subjects";
+            FROM subjects
+            ORDER BY name";
 
     $result = $conn->query($sql);
 
