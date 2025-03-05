@@ -17,7 +17,8 @@ function subjectsCRUDHtml() {
     $subjects = getSubjects();
 
     echo "<form action='' method='post'>";
-    echo "<table>";
+    echo "<table border=1>";
+    echo "<caption><button name='new-sub'>Új tantárgy</button></td></caption>";
     foreach ($subjects as $id => $subject) {
         echo "<tr>";
         echo "<td>$subject</td>";
@@ -29,6 +30,32 @@ function subjectsCRUDHtml() {
     echo "</form>";
 }
 
-function classesCRUDHtml() {
+function writeYears() {
     echo "Osztályok módosítása";
+
+    $years = getYears();
+
+    echo "<form action='' method='post'>";
+    foreach ($years as $y) {
+        echo "<button name='select-year' value=$y>$y</button>";
+    }
+    echo "</form>";
+}
+
+function writeClasses($y) {
+    $classes = getClasses($y);
+
+    echo "<h2>Osztályok ebben az évben: $y</h2>";
+    echo "<form action='' method='post'>";
+    echo "<table border=1>";
+    echo "<caption><button name='new-class'>Új osztály</button></caption>";
+    foreach ($classes as $id => $class) {
+        echo "<tr>";
+        echo "<td>$class</td>";
+        echo "<td><button name='change-class' value='$id'>Módosítás</button></td>";
+        echo "<td><button name='delete-class' value='$id'>Törlés</button></td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+    echo "</form>";
 }

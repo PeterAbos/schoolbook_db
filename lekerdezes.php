@@ -117,7 +117,7 @@ function Years($conn) {
 function Classes($conn, $y) {
     
 
-    $sql = "SELECT code
+    $sql = "SELECT id, code
             FROM classes
             WHERE year=$y
             ORDER BY 1";
