@@ -58,10 +58,10 @@ function AddTableGrades($conn) {
     )");
 }
 
-function InsertToSubjects($conn, $id, $name) {
+function InsertToSubjects($conn, $name) {
     $conn->query(
-    "INSERT IGNORE INTO subjects(id, name)
-    VALUES ($id, '$name')");
+    "INSERT IGNORE INTO subjects(name)
+    VALUES ('$name')");
 }
 function InsertToClasses($conn, $id, $name, $year) {
     $conn->query( 
@@ -211,8 +211,44 @@ function subjectsSQL($conn) {
     return $result;
 }
 
+function getSubjectById($id) {
+    $conn = ConnectDB('schoolbook');
 
+    $sql = "SELECT name
+            FROM subjects
+            WHERE id=$id";
+    
+    $result = $conn->query($sql);
 
+    $subject = "";
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $subject = $row["name"];
+        }
+    }
+    $conn->close();
+    return $subject;
+}
+
+function changeSubjectById($id, $newName) {
+    $conn = ConnectDB('schoolbook');
+
+    $sql = "UPDATE subjects SET name='$newName' WHERE id=$id";
+
+    $conn->query($sql);
+
+    $conn->close();
+}
+
+function deleteSubjectById($id) {
+    $conn = ConnectDB('schoolbook');
+
+    $sql = "DELETE FROM subjects WHERE id=$id";
+
+    $conn->query($sql);
+
+    $conn->close();
+}
 
 
 

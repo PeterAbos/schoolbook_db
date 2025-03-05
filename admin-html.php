@@ -59,3 +59,17 @@ function writeClasses($y) {
     echo "</table>";
     echo "</form>";
 }
+
+function newSubject() {
+    echo "<form action='' method='post'>";
+    echo "<input type='text' name='new-sub-name'>";
+    echo "<button name='add-new-sub'>Hozzáadás</button>";
+    echo "</form>";
+}
+
+function changeSubject($v, $name) {
+    echo "<form action='' method='post'>";
+    echo "<input type='text' name='sub-changed-name' value='$name'>";
+    echo "<button name='change-sub-submit' value='$v'>Módosít</button>";
+    echo "</form>";
+}

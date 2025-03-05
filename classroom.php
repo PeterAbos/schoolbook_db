@@ -14,7 +14,7 @@ function FillDatabase($conn) {
     //Subject tábla feltöltése:
     $subjects = $data["subjects"];
     for($i = 0; $i < count($subjects); $i++) {
-        InsertToSubjects($conn, $i+1, $subjects[$i]);
+        InsertToSubjects($conn, $subjects[$i]);
     }
 
     $classes = $data["classes"];
